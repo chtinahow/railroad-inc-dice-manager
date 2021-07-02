@@ -25,9 +25,20 @@ const home = () => {
 	// diceType will be from 15 different types
 	const regularDice = useGlobalStore('regularDice', [
 		{ diceType: 1, used: false },
+		{ diceType: 2, used: false },
+		{ diceType: 3, used: false },
+		{ diceType: 4, used: false },
+		{ diceType: 5, used: false },
+		{ diceType: 6, used: false },
+		{ diceType: 7, used: false },
+		{ diceType: 8, used: false },
+		{ diceType: 9, used: false },
+		{ diceType: 10, used: false },
+		{ diceType: 11, used: false },
 		{ diceType: 12, used: false },
-		{ diceType: 12, used: false },
-		{ diceType: 4, used: false }
+		{ diceType: 13, used: false },
+		{ diceType: 14, used: false },
+		{ diceType: 15, used: false }
 	])
 
 	const currentDice = regularDice.map(singleDice => {
