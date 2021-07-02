@@ -1,10 +1,11 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import { registerHtml, start, useEffect } from 'tram-one'
+import { registerHtml, start, useEffect, useGlobalStore } from 'tram-one'
 import AppHeader from './app-header'
 import AppSummary from './app-summary'
 import appTaskDescription from './app-task-description'
 import AppTaskList from './app-task-list'
+import RegularDice from './regular-dice'
 import './styles.css'
 
 /**
@@ -17,19 +18,33 @@ const html = registerHtml({
 	'app-summary': AppSummary,
 	'app-task-list': AppTaskList,
 	'app-task-description': appTaskDescription,
+	'regular-dice': RegularDice,
 })
 
 const home = () => {
-	useEffect(() => {
-		console.log('Thanks for using Tram-One!')
+	// diceType will be from 15 different types
+	const regularDice = useGlobalStore('regularDice', [
+		{ diceType: 1, used: false },
+		{ diceType: 12, used: false },
+		{ diceType: 12, used: false },
+		{ diceType: 4, used: false }
+	])
+
+	const currentDice = regularDice.map(singleDice => {
+		const toggleUsed = () => {
+			singleDice.used = !singleDice.used
+		}
+
+		return html`
+			<regular-dice diceType=${singleDice.diceType} ${singleDice.used ? 'used' : '' } useDice=${toggleUsed} />
+		`
 	})
+
 	return html`
 		<main>
-			<app-header>railroad-inc-manager checklist</app-header>
-			<app-summary />
-			<app-task-list />
+			<app-header>railroad-inc-manager</app-header>
 			<hr />
-			<app-task-description />
+			${currentDice}
 		</main>
 	`
 }
