@@ -6,6 +6,7 @@ import AppSummary from './app-summary'
 import appTaskDescription from './app-task-description'
 import AppTaskList from './app-task-list'
 import RegularDice from './regular-dice'
+import RoundRows from './round-rows'
 import './styles.css'
 
 /**
@@ -19,6 +20,7 @@ const html = registerHtml({
 	'app-task-list': AppTaskList,
 	'app-task-description': appTaskDescription,
 	'regular-dice': RegularDice,
+	'round-rows': RoundRows,
 })
 
 const home = () => {
@@ -41,13 +43,22 @@ const home = () => {
 		{ diceType: 15, used: false }
 	])
 
-	const currentDice = regularDice.map(singleDice => {
-		const toggleUsed = () => {
-			singleDice.used = !singleDice.used
+	const dicePerRound = useGlobalStore('dicePerRound', [
+		{ diceRound: 1, diceType: 10, used: true },
+		{ diceRound: 1, diceType: 11, used: true }
+	])
+
+	const selectedRound = useGlobalStore('selectedRound', { round: 1 })
+
+
+	const dicePicker = regularDice.map(singleDice => {
+		const addToRound = () => {
+			const clickedDiceType = singleDice.diceType
+			dicePerRound.push({ diceRound: selectedRound.round, diceType: clickedDiceType, used: false })
 		}
 
 		return html`
-			<regular-dice diceType=${singleDice.diceType} ${singleDice.used ? 'used' : '' } useDice=${toggleUsed} />
+			<regular-dice diceType=${singleDice.diceType} ${singleDice.used ? 'used' : '' } onclick=${addToRound} />
 		`
 	})
 
@@ -55,7 +66,8 @@ const home = () => {
 		<main>
 			<app-header>railroad-inc-manager</app-header>
 			<hr />
-			${currentDice}
+			${dicePicker}
+			<round-rows></round-rows>
 		</main>
 	`
 }

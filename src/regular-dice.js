@@ -27,7 +27,7 @@ export default (props, children) => {
 			class="regular-dice ${usedClassName}" 
 			style="background-position-x: ${findOffset()}px; background-position-y: 0; background-image: url(${regularRailroadDiceMap})" 
 			src=${transparentPixel}
-			onclick=${props.useDice}
+			onclick=${props.onclick}
 		>
 	`
 }
