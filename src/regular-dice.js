@@ -11,8 +11,6 @@ import regularRailroadDiceMap from './images/regular-railroad-dice.png'
 const html = registerHtml()
 
 export default (props, children) => {
-	const regularDice = useGlobalStore('regularDice')
-
 	const usedClassName = props.used ? 'used' : ''
 
 	const findOffset = () => {
@@ -23,7 +21,7 @@ export default (props, children) => {
 	}
 
 	return html`
-		<img 
+		<button 
 			class="regular-dice ${usedClassName}" 
 			style="background-position-x: ${findOffset()}px; background-position-y: 0; background-image: url(${regularRailroadDiceMap})" 
 			src=${transparentPixel}
