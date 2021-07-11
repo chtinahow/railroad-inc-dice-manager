@@ -14,9 +14,9 @@ export default (props, children) => {
 	const usedClassName = props.used ? 'used' : ''
 
 	const findOffset = () => {
-		const position = 95 * props.diceType
+		const position = 95 + (48 * props.diceType) // 48 is the number of pixels that looked best when scaling down
 		if(position > 1200) return position - 3
-		if (position > 800) return position - 2
+		if (position > 700) return position + 2
 		return position
 	}
 
